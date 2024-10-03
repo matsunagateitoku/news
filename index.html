@@ -8,119 +8,178 @@
    <link rel="stylesheet" type="text/css" href="styletest.css" /> 
 </head>
 	
-<style>
+<body>
+	<h1 id=title>People's Daily Brief</h1>
+
+	<h2 class="section_title">National US Newspapers</h2>	
+		<button id="select-box1">Hide Bias</button> 
+		<button id="select-box2">Show Bias</button> 
+			<div class="tab"> 
+				<div id="nationalNewspaper"></div>
+			</div>
 	
-	table, th, td {
-  border:1px solid black;
+	<h2 class="section_title">Local US Newspapers</h2>
+		<button id="local-box1">Hide Bias</button> 
+		<button id="local-box2">Show Bias</button> 
+			<div class="tab">
+				<div id="localNewspaper"></div>
+			</div>
+
+	<h2 class="section_title">Wire Sevices</h2>
+			<div class="tab">
+				<div id="wire"></div>
+			</div>
+	
+	<h2 class="section_title">Web News</h2>
+		<button id="web-box1">Hide Bias</button> 
+		<button id="web-box2">Show Bias</button> 
+			<div class="tab">
+				<div id="webnews"></div>
+			</div>
+
+	<h2 class="section_title">Political News</h2>
+		<button id="political-box1">Hide Bias</button> 
+		<button id="political-box2">Show Bias</button> 
+			<div class="tab">
+				<div id="politicalnews"></div>
+			</div>
+	
+	<h2 class=section_title >TV and Raido News</h2>
+		<button id="tv-box1">Hide Bias</button> 
+		<button id="tv-box2">Show Bias</button> 
+			<div class="tab">
+				<div id="tvnews"></div>
+			</div>
+	
+	<h2 class=section_title>Magazines</h2>
+	<h2 class=section_title>Business & Finance</h2>
+	<h2 class=section_title>Science & Nature</h2>
+	<h2 class=section_title>Tech</h2>
+	<h2 class=section_title>Sports</h2>
+	<h2 class=section_title>Entertainment</h2>
+	<h2 class=section_title>Think Tanks</h2>
+	<h2 class=section_title>Overseas</h2>
+	<h2 class=section_title>Propaganda</h2>
+	
+<h2 class=section_title>Sites about news & news bias</h2>
+	<div class="tab">
+		<form action="https://en.wikipedia.org/wiki/List_of_newspapers_in_the_United_States" method="get" target="_blank">
+   	<button type="submit">Wiki list U.S. newspapers</button> </form>
+	</div>
+
+<h2 class=section_title>Other Versions of the site</h2>
+	<a href="./website3.html">place holder images wireframe</a>
+   <a href="./website4.html">pills for sites</a>
+   <a href="./wordcloud.html">wordcloud</a>
+   
+</body>
+<script src="data/nationalNewspapers.js"></script>
+<script src="data/localNewspapers.js"></script>
+<script src="data/wire.js"></script>
+<script src="data/webnews.js"></script>
+<script src="data/politicalnews.js"></script>
+<script src="data/tvnews.js"></script>
+	
+<script> 
+function newsTemplate(news){
+	return `
+	<form action="${news.url}" 
+			method="get" target="_blank">
+      	<button 
+						id="${news.type}"
+						class="${news.type}"
+						type="submit"> <div style= "font-size: 25px">${news.title}</div>
+			</button>
+	</form>		`
 }
 	
-.flex-container {
-  display: flex;
-  background-color: #f1f1f1;
+    // Function to set inner HTML of sections
+    function setSectionInnerHTML(sectionId, newsArray) {
+        document.getElementById(sectionId).innerHTML = newsArray.map(newsTemplate).join("");
+    }
+
+    // Call the function for each section
+    setSectionInnerHTML("nationalNewspaper", nationalNewspapers);
+    setSectionInnerHTML("localNewspaper", localNewspapers);
+    setSectionInnerHTML("wire", wire);
+    setSectionInnerHTML("webnews", webnews);
+    setSectionInnerHTML("politicalnews", politicalnews);
+	 setSectionInnerHTML("tvnews", tvnews);
+	
+// Selecting elements for national news bias toggling
+const blueNational = document.querySelectorAll("#blue-national");
+const redNational = document.querySelectorAll("#red-national");
+const greyNational = document.querySelectorAll("#grey-national");
+
+// Selecting elements for local news bias toggling
+const box1Local = document.querySelectorAll("#blue-local");
+const box2Local = document.querySelectorAll("#red-local");
+const box3Local = document.querySelectorAll("#grey-local");
+
+// Selecting buttons for toggling national news bias
+const selectBox1Btn = document.querySelector('#select-box1');
+const selectBox2Btn = document.querySelector('#select-box2');
+
+// Selecting buttons for toggling local news bias
+const selectBox1BtnLocal = document.querySelector('#local-box1');
+const selectBox2BtnLocal = document.querySelector('#local-box2');
+
+// Selecting buttons for toggling web news bias
+const selectBox1BtnWeb = document.querySelector('#web-box1');
+const selectBox2BtnWeb = document.querySelector('#web-box2');
+
+// Selecting buttons for toggling political news bias
+const selectBox1BtnPolitical = document.querySelector('#political-box1');
+const selectBox2BtnPolitical = document.querySelector('#political-box2');
+
+	
+	
+		function updateStyles(elements, bgColor, textColor) {
+    elements.forEach(elem => {
+        elem.style.backgroundColor = bgColor;
+        elem.style.color = textColor;
+    });
 }
 
-.flex-container > div {
-  background-color: DodgerBlue;
-  color: white;
-  width: 300px;
-  margin: 10px;
-  text-align: center;
-  line-height: 75px;
-  font-size: 30px;
-}
+// Event listeners
+selectBox1Btn.addEventListener('click', () => {
+    updateStyles(redNational, '#cccccc', 'black');
+    updateStyles(blueNational, '#cccccc', 'black');
+    updateStyles(greyNational, '#cccccc', 'black');
+});
+
+selectBox2Btn.addEventListener('click', () => {
+    updateStyles(redNational, '', '');
+    updateStyles(blueNational, '', '');
+    updateStyles(greyNational, '', '');
+});
+
+selectBox1BtnLocal.addEventListener('click', () => {
+    updateStyles(box2Local, '#cccccc', 'black');
+    updateStyles(box1Local, '#cccccc', 'black');
+    updateStyles(box3Local, '#cccccc', 'black');
+});
+
+selectBox2BtnLocal.addEventListener('click', () => {
+    updateStyles(box2Local, '', '');
+    updateStyles(box1Local, '', '');
+    updateStyles(box3Local, '', '');
+});
+
+selectBox1BtnWeb.addEventListener('click', () => {
+    updateStyles(redNational, '#cccccc', 'black');
+    updateStyles(blueNational, '#cccccc', 'black');
+    updateStyles(greyNational, '#cccccc', 'black');
+});
 	
-	
-.body {font-family: Arial;}
+selectBox1BtnPolitical.addEventListener('click', () => {
+    updateStyles(redNational, '#cccccc', 'black');
+    updateStyles(blueNational, '#cccccc', 'black');
+    updateStyles(greyNational, '#cccccc', 'black');
+});
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-	
-	
-/* Change background color of buttons on hover */
-.tab button_r:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button_r.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-	
-	
-.button {
-  background-color: #0033cc;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-.button:hover {
-  background-color: #66b3ff;
-	}
-.button_red {
-  background-color: #ff0000;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-.button_red:hover {
-  background-color: #ffb3b3;
-}
-#title {
-	color: whitesmoke;
-	text-align: center;
-	border-radius: 16px;
-	background-color:DodgerBlue;
-	}
-	
-</style>
+		</script>
+</html> 
 	
 	<h1 id=title>People's Daily Brief</h1>
 	
