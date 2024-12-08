@@ -1,6 +1,3 @@
 # news
-My news website 
-this is the old version 
-
-codespce
+Old version of my news website 
 
